@@ -1,0 +1,40 @@
+package main;
+
+import java.util.Map;
+
+import model.Facility;
+import networking.NetworkingService;
+import Items.ItemService;
+import facility.FacilityService;
+
+public class OrderProcessing {
+	static ItemService itemService;
+	static FacilityService facilityService;
+	static NetworkingService networkService;
+
+	public static void main(String args[]) {
+		itemService = new ItemService();
+		facilityService = new FacilityService();
+		networkService = new NetworkingService();
+		// OrderService orderService = new OrderService();
+
+		networkService.printShortestPath("Chicago, IL","Fargo, ND");
+		networkService.printShortestPath("Norfolk, VA","Denver, CO");
+
+		for (Map.Entry<String, Facility> facility : facilityService.facilities
+				.entrySet()) {
+			printStatus(facility.getKey());
+		}
+
+	}
+
+	public static void printStatus(String facility) {
+		System.out
+				.println("===================================================================================================");
+		networkService.printFacilityStatus(facility);
+		facilityService.printFacilityItems(facility);
+		facilityService.printFacilitySchedule(facility);
+		System.out
+				.println("===================================================================================================");
+	}
+}

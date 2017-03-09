@@ -1,0 +1,46 @@
+package main;
+
+import java.util.Map;
+
+import model.Facility;
+import networking.NetworkingService;
+import Items.ItemService;
+import facility.FacilityService;
+
+public class OrderProcessing {
+	static ItemService itemService;
+	static FacilityService facilityService;
+	static NetworkingService networkService;
+
+	public static void main(String args[]) {
+		itemService = new ItemService();
+		facilityService = new FacilityService();
+		networkService = new NetworkingService();
+
+		for (Map.Entry<String, Facility> facility : facilityService.facilities
+				.entrySet()) {
+			printStatus(facility.getKey());
+		}
+
+		networkService.printShortestPath("Santa Fe, NM", "Chicago, IL");
+		networkService.printShortestPath("Atlanta, GA", "St. Louis, MO");
+		networkService.printShortestPath("Seattle, WA", "Nashville, TN");
+		networkService.printShortestPath("New York City, NY", "Phoenix, AZ");
+		networkService.printShortestPath("Fargo, ND", "Austin, TX");
+		networkService.printShortestPath("Denver, CO", "Miami, FL");
+		networkService.printShortestPath("Austin, TX", "Norfolk, VA");
+		networkService.printShortestPath("Miami, FL", "Seattle, WA");
+		networkService.printShortestPath("Los Angeles, CA", "Chicago, IL");
+		networkService.printShortestPath("Detroit, MI", "Nashville, TN");
+
+	}
+
+	public static void printStatus(String facility) {
+		networkService.printFacilityStatus(facility);
+		facilityService.printFacilityItems(facility);
+		facilityService.printFacilitySchedule(facility);
+		System.out
+				.println("===================================================================================================");
+	}
+
+}
